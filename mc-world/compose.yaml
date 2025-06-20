@@ -1,0 +1,28 @@
+services:
+  minecraft_server:
+    image: itzg/minecraft-server:latest
+    # ports:
+    #   - 25565:25565
+    #   - 25575:25575
+    restart: always
+    environment:
+      EULA: "TRUE"
+      TYPE: "SPIGOT" # SPIGOT / AUTO_CURSEFORGE etc..
+      TZ: Asia/Tokyo
+      MEMORY: "5G"
+      VERSION: "1.20.1" # Minecraft Version
+      UID: 0
+      MODE: "survival"
+      DIFFICULTY: "peaceful"
+      # OVERRIDE_SERVER_PROPERTIES: true # server.properties を手動で管理しない場合
+      MAX_TICK_TIME: "-1"
+      ALLOW_FLIGHT: true
+    volumes:
+      - ./data:/data
+      - /etc/localtime:/etc/localtime:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: 10
+    network_mode: host
